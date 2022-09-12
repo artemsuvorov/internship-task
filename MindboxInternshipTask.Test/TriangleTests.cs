@@ -14,7 +14,8 @@ public class TriangleTests
     public void Test_TriangleArea(double side1, double side2, double side3, double expectedArea)
     {
         var triangle = new Triangle(side1, side2, side3);
-        Assert.That(triangle.Area, Is.EqualTo(expectedArea).Within(Delta));
+        var actualArea = Geometry.GetArea(triangle);
+        Assert.That(actualArea, Is.EqualTo(expectedArea).Within(Delta));
     }
 
     [Test]
@@ -28,7 +29,8 @@ public class TriangleTests
         Assert.That(triangle.IsRight());
 
         var expectedArea = 0.5 * cathetus1 * cathetus2;
-        Assert.That(triangle.Area, Is.EqualTo(expectedArea).Within(Delta));
+        var actualArea = Geometry.GetArea(triangle);
+        Assert.That(actualArea, Is.EqualTo(expectedArea).Within(Delta));
     }
 
     [Test]

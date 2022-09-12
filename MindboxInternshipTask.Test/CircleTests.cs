@@ -11,7 +11,8 @@ public class CircleTests
     public void Test_TriangleArea(double radius, double expectedArea)
     {
         var circle = new Circle(radius);
-        Assert.That(circle.Area, Is.EqualTo(expectedArea).Within(Delta));
+        var actualArea = Geometry.GetArea(circle);
+        Assert.That(actualArea, Is.EqualTo(expectedArea).Within(Delta));
     }
 
     [Test]
@@ -20,7 +21,8 @@ public class CircleTests
         var radius = _random.NextDouble() * 1024;
         var circle = new Circle(radius);
         var expectedArea = radius * radius * Math.PI;
-        Assert.That(circle.Area, Is.EqualTo(expectedArea).Within(Delta));
+        var actualArea = Geometry.GetArea(circle);
+        Assert.That(actualArea, Is.EqualTo(expectedArea).Within(Delta));
     }
 
     [Test]
