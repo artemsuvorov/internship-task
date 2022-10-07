@@ -4,9 +4,10 @@ public class Triangle : Shape
 {
     private const double Delta = 1e-5;
 
-    public double Hypotenuse { get; }
-    public double Cathetus1 { get; }
-    public double Cathetus2 { get; }
+    private bool? _isRight;
+    private readonly double _side1, _side2, _side3;
+
+    public bool IsRight => _isRight ??= CheckIsRight();
 
     public Triangle(double side1, double side2, double side3)
     {
@@ -16,22 +17,20 @@ public class Triangle : Shape
             .OrderByDescending(x => x)
             .ToArray();
 
-        Hypotenuse = orderedSides[0];
-        Cathetus1 = orderedSides[1];
-        Cathetus2 = orderedSides[2];
+        (_side1, _side2, _side3) = (orderedSides[0], orderedSides[1], orderedSides[2]);
     }
 
-    public bool IsRight()
+    protected bool CheckIsRight()
     {
-        return Math.Abs(Cathetus1*Cathetus1 + Cathetus2*Cathetus2 - Hypotenuse*Hypotenuse) < Delta;
+        return Math.Abs(_side2*_side2 + _side3*_side3 - _side1*_side1) < Delta;
     }
 
     protected override double CalculateArea()
     {
-        if (IsRight())
-            return 0.5 * Cathetus1 * Cathetus2;
+        if (IsRight)
+            return 0.5 * _side2 * _side3;
 
-        var (a, b, c) = (Hypotenuse, Cathetus1, Cathetus2);
+        var (a, b, c) = (_side1, _side2, _side3);
         var p = (a + b + c) * 0.5; // semiperimeter
         return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
     }

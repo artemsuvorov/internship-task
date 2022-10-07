@@ -2,17 +2,17 @@
 
 public class Circle : Shape
 {
-    public double Radius { get; }
+    private readonly double _radius;
 
     public Circle(double radius)
     {
         Validate(radius);
-        Radius = radius;
+        _radius = radius;
     }
 
     protected override double CalculateArea()
     {
-        return Radius * Radius * Math.PI;
+        return _radius * _radius * Math.PI;
     }
 
     private static void Validate(double radius)
